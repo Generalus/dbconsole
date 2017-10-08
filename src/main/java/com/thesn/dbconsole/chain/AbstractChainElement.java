@@ -10,7 +10,7 @@ import java.sql.Statement;
 public abstract class AbstractChainElement implements ChainElement {
 
     private final Configuration configuration;
-    private final ConnectionSupplier connectionSupplier;
+    private final Connector connector;
     private ChainElement element;
 
     AbstractChainElement(final ChainElement element) {
@@ -20,7 +20,7 @@ public abstract class AbstractChainElement implements ChainElement {
 
     AbstractChainElement(final Configuration configuration) {
         this.configuration = configuration;
-        this.connectionSupplier = new ConnectionSupplier(configuration);
+        this.connector = new Connector(configuration);
     }
 
     @Override
@@ -30,7 +30,7 @@ public abstract class AbstractChainElement implements ChainElement {
         }
 
         if (needProcess()) {
-            try (Connection dbConnection = connectionSupplier.supply();
+            try (Connection dbConnection = connector.supplyConnection();
                  Statement statement = dbConnection.createStatement()) {
 
                 executeStatement(statement);

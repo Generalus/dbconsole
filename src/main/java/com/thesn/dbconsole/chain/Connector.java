@@ -10,14 +10,14 @@ import static com.thesn.dbconsole.configuration.Argument.CONNECTION;
 import static com.thesn.dbconsole.configuration.Argument.LOGIN;
 import static com.thesn.dbconsole.configuration.Argument.PASSWORD;
 
-public class ConnectionSupplier {
+public class Connector {
     private Configuration configuration;
 
-    public ConnectionSupplier(final Configuration configuration) {
+    public Connector(final Configuration configuration) {
         this.configuration = configuration;
     }
 
-    public Connection supply() {
+    public Connection supplyConnection() {
         Connection connection;
         try {
             registerDriver();
