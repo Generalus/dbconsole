@@ -1,6 +1,7 @@
 package com.thesn.dbconsole;
 
 import com.thesn.dbconsole.chain.*;
+import com.thesn.dbconsole.configuration.ImmutableConfiguration;
 import com.thesn.dbconsole.configuration.ValidatedConfiguration;
 
 public class Main {
@@ -14,9 +15,11 @@ public class Main {
                         new CreateChainElement(
                                 new InsertChainElement(
                                         new DeleteChainElement(
-                                                new ValidatedConfiguration(
-                                                        new CommandInterface(args)
-                                                                .extractConfiguration()
+                                                new ImmutableConfiguration(
+                                                        new ValidatedConfiguration(
+                                                                new CommandInterface(args)
+                                                                        .extractConfiguration()
+                                                        )
                                                 )
                                         )
                                 )
