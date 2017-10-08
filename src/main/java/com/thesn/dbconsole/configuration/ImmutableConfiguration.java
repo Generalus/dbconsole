@@ -4,7 +4,7 @@ public class ImmutableConfiguration implements Configuration {
 
     private final Configuration configuration;
 
-    public ImmutableConfiguration(Configuration configuration) {
+    public ImmutableConfiguration(final Configuration configuration) {
         this.configuration = configuration;
     }
 
