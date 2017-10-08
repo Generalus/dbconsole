@@ -1,5 +1,6 @@
 # dbconsole
-Tool for connecting to a database (now it supports mysql and postgresql only) and running some queries
+Tool for connecting to a database (now it supports mysql and postgresql only) and running some queries.
+
 Code was written with true OOP style, inspired by Yegor Bugaenko.
 
 Example:
