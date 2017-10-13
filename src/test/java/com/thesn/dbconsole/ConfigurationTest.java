@@ -9,12 +9,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class ConfigurationTest {
-    String[] args = new String[0];
-    CommandInterface commandInterface = new CommandInterface(args);
     String dbLocationControl = "jdbc:mysql://localhost:3306/my_database";
     String passControl = "pass";
     String loginControl = "login";
     String queryControl = "query";
+    String[] args = new String[4];
+
+    CommandInterface commandInterface = new CommandInterface(args);
+
 
     @Test
     void consoleTest() {
