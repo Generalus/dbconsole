@@ -10,13 +10,13 @@ class ImmutableConfigurationTest {
     Configuration ic = new ImmutableConfiguration(new Stub());
 
     @Test
-    void AssertThatWeCanGetSomethingFromStub() {
+    void assertThatWeCanGetSomethingFromStub() {
 
         assertEquals("Nothing", ic.get(Argument.PASSWORD));
     }
 
     @Test
-    void AssertThatWeCannotMutateImmutableInstance() {
+    void assertThatWeCannotMutateImmutableInstance() {
 
         Throwable exception = assertThrows(UnsupportedOperationException.class, () -> {
             ic.put("string1", "string2");
@@ -25,7 +25,7 @@ class ImmutableConfigurationTest {
     }
 
     @Test
-    void AssertThatWeCannotMutateImmutableInstanceAnotherInput() {
+    void assertThatWeCannotMutateImmutableInstanceAnotherInput() {
 
         Throwable exception = assertThrows(UnsupportedOperationException.class, () -> {
             ic.put(Argument.PASSWORD, "string2");
