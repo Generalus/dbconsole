@@ -2,52 +2,57 @@ package com.thesn.dbconsole;
 
 
 import com.thesn.dbconsole.configuration.Argument;
+import com.thesn.dbconsole.configuration.DefaultConfiguration;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class ConfigurationTest {
-    String expectedDbLocation = "--connection=jdbc:mysql://localhost:3306/my_database";
+
+    static DefaultConfiguration configuration = new DefaultConfiguration();
     String expectedPassword = "--password=pass";
+    String expectedDbLocation = "--connection=jdbc:mysql://localhost:3306/my_database";
     String expectedLogin = "--login=login";
     String expectedQuery = "--query=query";
-    String[] args = {expectedDbLocation, expectedLogin, expectedPassword,expectedQuery};
 
-    CommandInterface commandInterface = new CommandInterface(args);
+    @BeforeAll
+    static void initAllFields() {
+
+
+        configuration.put(Argument.PASSWORD, "--password=pass");
+        configuration.put(Argument.CONNECTION, "--connection=jdbc:mysql://localhost:3306/my_database");
+        configuration.put(Argument.LOGIN, "--login=login");
+        configuration.put(Argument.QUERY, "--query=query");
+    }
+
+    @Test
+    void dbLocationConfigurationTest() {
+
+
+        assertEquals(expectedDbLocation, configuration.get(Argument.CONNECTION), "Connection test failed, please check connection properties");
+
+
+    }
 
 
     @Test
-    void consoleTest() {
+    void dbPasswordConfigurationTest() {
 
-        assertAll("properties",
-                () -> {
+        assertEquals(expectedPassword, configuration.get(Argument.PASSWORD), "Password test failed, please check password properties");
 
-                    commandInterface.extractConfiguration().put(Argument.CONNECTION, expectedDbLocation);
-                    String dbLocation = commandInterface.extractConfiguration().get(Argument.CONNECTION);
-                    assertEquals(expectedDbLocation,"--connection=" + dbLocation);
+    }
 
-                },
-                () -> {
-                    commandInterface.extractConfiguration().put(Argument.PASSWORD, expectedPassword);
-                    String pass = commandInterface.extractConfiguration().get(Argument.PASSWORD);
-                    assertEquals(expectedPassword,"--password=" + pass);
+    @Test
+    void dbLoginConfigurationTest() {
+        assertEquals(expectedLogin, configuration.get(Argument.LOGIN), "Login test failed, please check login properties");
 
-                },
-                () -> {
-                    commandInterface.extractConfiguration().put(Argument.LOGIN, expectedLogin);
-                    String login = commandInterface.extractConfiguration().get(Argument.LOGIN);
-                    assertEquals(expectedLogin,"--login=" + login);
-                },
-                () -> {
-                    commandInterface.extractConfiguration().put(Argument.QUERY, expectedQuery);
-                    String query = commandInterface.extractConfiguration().get(Argument.QUERY);
-                    assertEquals(expectedQuery, "--query=" + query);
-                }
+    }
 
 
-        );
+    @Test
+    void dbQueryTest() {
+        assertEquals(expectedQuery, configuration.get(Argument.QUERY), "Query test failed, please check Query properties");
 
     }
 }
