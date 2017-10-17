@@ -1,47 +1,46 @@
 package com.thesn.dbconsole.configuration;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class DefaultConfigurationTest {
 
+    static Configuration defaultConfiguration = new DefaultConfiguration();
 
-    DefaultConfiguration defaultConfiguration = new DefaultConfiguration();
+    @BeforeAll
+    static void setUp() {
+
+        defaultConfiguration.put(Argument.SEPARATOR, "TEST");
+        defaultConfiguration.put("connection", "connection");
+
+    }
 
 
     @Test
-    void put1() {
-
+    void assertThatAddedArgumentIsNotSupported() {
 
         Throwable exception = assertThrows(UnsupportedOperationException.class, () -> {
             defaultConfiguration.put("TEST_KEY", "TEST_VALUE");
         });
         assertEquals("Argument TEST_KEY is not supported now!", exception.getMessage());
 
-        defaultConfiguration.put("connection", "connection");
+    }
+
+
+    @Test
+    void assertThatArgumentAdded() {
+
+        assertEquals("TEST", defaultConfiguration.get(Argument.SEPARATOR));
+    }
+
+    @Test
+    void assertThatArgumentWithStringParametersAdded() {
+
         assertEquals("connection", defaultConfiguration.get(Argument.CONNECTION));
 
-
-    }
-
-    @Test
-    void get() {
-
-        defaultConfiguration.put(Argument.SEPARATOR, "TEST");
-        defaultConfiguration.get(Argument.SEPARATOR);
-        assertEquals("TEST", defaultConfiguration.get(Argument.SEPARATOR));
-        assertNotNull(defaultConfiguration.get(Argument.SEPARATOR));
-
-    }
-
-    @Test
-    void put() {
-        defaultConfiguration.put(Argument.PASSWORD, "TEST");
-        assertEquals("TEST", defaultConfiguration.get(Argument.PASSWORD));
-        assertNotNull(defaultConfiguration.get(Argument.PASSWORD));
 
     }
 

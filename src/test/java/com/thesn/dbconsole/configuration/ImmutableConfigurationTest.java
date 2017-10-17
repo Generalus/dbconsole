@@ -7,16 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ImmutableConfigurationTest {
 
-    ImmutableConfiguration ic = new ImmutableConfiguration(new ImmutableConfigurationStub());
+    Configuration ic = new ImmutableConfiguration(new Stub());
 
     @Test
-    void get() {
+    void AssertThatWeCanGetSomethingFromStub() {
 
-        assertEquals("my stubbed return", ic.get(Argument.PASSWORD));
+        assertEquals("Nothing", ic.get(Argument.PASSWORD));
     }
 
     @Test
-    void put() {
+    void AssertThatWeCannotMutateImmutableInstance() {
 
         Throwable exception = assertThrows(UnsupportedOperationException.class, () -> {
             ic.put("string1", "string2");
@@ -25,7 +25,7 @@ class ImmutableConfigurationTest {
     }
 
     @Test
-    void put1() {
+    void AssertThatWeCannotMutateImmutableInstanceAnotherInput() {
 
         Throwable exception = assertThrows(UnsupportedOperationException.class, () -> {
             ic.put(Argument.PASSWORD, "string2");
@@ -33,9 +33,9 @@ class ImmutableConfigurationTest {
         assertEquals("Cannot mutate immutable instance", exception.getMessage());
     }
 
-    class ImmutableConfigurationStub implements Configuration {
+    class Stub implements Configuration {
         public String get(Argument argument) {
-            return "my stubbed return";
+            return "Nothing";
         }
 
         public void put(String string, String string1) {
